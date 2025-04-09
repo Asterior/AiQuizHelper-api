@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QuiPro Response</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.98);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        body:hover {
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+        }
+        .response-container {
+            max-height: 250px;
+            overflow-y: auto;
+            padding-right: 10px;
+            min-height: 100px;
+        }
+        .response-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .response-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+        .response-container::-webkit-scrollbar-thumb {
+            background: #3498db;
+            border-radius: 3px;
+        }
+        .response-container::-webkit-scrollbar-thumb:hover {
+            background: #2980b9;
+        }
+        .response-text {
+            white-space: pre-wrap;
+            line-height: 1.6;
+            color: #2c3e50;
+            font-size: 1.1em;
+            margin: 0;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #95a5a6;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+        .close-button:hover {
+            background-color: #f8f9fa;
+            color: #2c3e50;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .header h2 {
+            margin: 0;
+            color: #3498db;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            color: #3498db;
+            font-size: 0.9em;
+            margin-top: 10px;
+            padding: 20px;
+        }
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid #3498db;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loading-text {
+            margin-top: 10px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>QuiPro Response</h2>
+        <button class="close-button" onclick="closeOverlay()">×</button>
+    </div>
+    <div class="response-container">
+        <div id="response" class="response-text"></div>
+    </div>
+    <div id="loading" class="loading">
+        Processing your request
+        <div class="loading-text">This may take a few seconds...</div>
+    </div>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+
+        ipcRenderer.on('update-answer', (event, answer) => {
+            document.getElementById('response').textContent = answer;
+            document.getElementById('loading').style.display = 'none';
+        });
+
+        ipcRenderer.on('show-loading', () => {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('response').textContent = '';
+        });
+
+        ipcRenderer.on('hide-loading', () => {
+            document.getElementById('loading').style.display = 'none';
+        });
+
+        function closeOverlay() {
+            ipcRenderer.send('close-overlay');
+        }
+
+        // Close overlay when clicking anywhere on the body
+        document.body.addEventListener('click', closeOverlay);
+
+        // Close overlay with Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeOverlay();
+            }
+        });
+    </script>
+</body>
+</html>
