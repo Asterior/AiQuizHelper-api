@@ -18,7 +18,7 @@ QuiPro is a lightweight, AI-powered desktop application built using **Electron.j
 
 ## 🚀 Getting Started
 
-### 1. Clone the repo
+### 1. Clone the repo and type "npm install"
 ### 2. Turn on Clipboard history (windows+V)
 ### 3. Add your API keys in the .env file (recommended to add 2 api keys to avoid hitting rate limits or can make multiple keys and add them if you are using a free one)
 ### 4. Open the terminal and type npm start and you are good to when you copy you will see the overlay automatically pop up and answer your question
