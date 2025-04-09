@@ -1,6 +1,6 @@
-# QuiPro 🎯 – AI Quiztion Helper 
+# QuesPro 🎯 – AI Quiztion Helper 
 
-**QuiPro** is a lightweight, AI-powered desktop app built with **Electron.js**. It monitors your clipboard, detects copied MCQs or open-ended questions, and instantly shows the answer using **Gemini 1.5 Pro API** in a floating overlay window.
+**QuesPro** is a lightweight, AI-powered desktop app built with **Electron.js**. It monitors your clipboard, detects copied MCQs or open-ended questions, and instantly shows the answer using **Gemini 1.5 Pro API** in a floating overlay window.
 
 No clicks. No lag. Just copy and win. *(For ethical/educational use only)*
 
@@ -74,7 +74,7 @@ npm start
 
 ## ⚠️ Disclaimer
 
-QuiPro is intended **for educational and research purposes only**.  
+QuesPro is intended **for educational and research purposes only**.  
 The creators are **not responsible** for misuse during exams or assessments.  
 Use responsibly and ethically.
 
